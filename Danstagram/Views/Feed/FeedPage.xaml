@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Danstagram.Views.Feed.FeedPage"
+             xmlns:local="clr-namespace:Danstagram.ViewModels.Feed"  
+             xmlns:models="clr-namespace:Danstagram.Models.Feed"  
+             xmlns:services="clr-namespace:Danstagram.Services" 
+             x:DataType="local:FeedViewModel">
+    
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="True" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+        <ContentView>
+            <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" >
+                <StackLayout Orientation="Horizontal"  HorizontalOptions="Start" VerticalOptions="Center">
+                    <Image Source="icon_danstagram.png" VerticalOptions="Center"
+                           Aspect="AspectFit"
+                           Margin="0,0,0,0"/>
+                </StackLayout>
+            </StackLayout>
+        </ContentView>
+    </Shell.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Sign Out" Command="{Binding SignOutCommand}" Priority="0"/>
+        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" Priority="1"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Resources>
+        <services:ByteToImageConverter x:Key="imgConverter"/>
+    </ContentPage.Resources>
+
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Model.ItemList}"
+                SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="15,0,0,0" x:DataType="{x:Type models:FeedModel+FeedItem}" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                        <ContentView Padding="-1,10,0,0" VerticalOptions="FillAndExpand">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center">
+                                <Frame CornerRadius="40" 
+                                        Padding="0"
+                                        IsClippedToBounds="True">
+                                    <Image Source="{Binding Path=Image, Converter={StaticResource imgConverter}}" 
+                                       WidthRequest="40" 
+                                       HeightRequest="40" 
+                                       Aspect="AspectFill"/>
+                                </Frame>
+                                <Label Text="{Binding UserName}" 
+                                   FontSize="16" 
+                                   TextColor="#333" 
+                                   VerticalOptions="Center" 
+                                   HorizontalOptions="Start" 
+                                   Margin="0,0,0,0" />
+                            </StackLayout>
+                        </ContentView>
+                        <Image Source="{Binding Path=Image, Converter={StaticResource imgConverter}}" 
+                               HorizontalOptions="Fill" 
+                               VerticalOptions="FillAndExpand" 
+                               HeightRequest="400" 
+                               Aspect="AspectFill"
+                               Margin="-15,0,0,0"/>
+                        <StackLayout Orientation="Horizontal" Padding="-4,0,0,0">
+                            <Image Source="{Binding LikeIcon}"
+                                         WidthRequest="40" HeightRequest="40" Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Start">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:FeedViewModel}}, Path=LikeCommand}"
+                                        CommandParameter="{Binding Id}"
+                                        NumberOfTapsRequired="1"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Image Source="{Binding CommentIcon}" 
+                                         WidthRequest="40" HeightRequest="40" Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Start">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:FeedViewModel}}, Path=CommentCommand}"
+                                        CommandParameter="{Binding Id}"
+                                        NumberOfTapsRequired="1"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </StackLayout>
+                        <Label Text="{Binding LikeCount,StringFormat='{0} likes'}" 
+                           FontSize="16" 
+                           TextColor="#333" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start" 
+                           Margin="0,0,0,-5" />
+                        <StackLayout Orientation="Horizontal" Padding="0,0,0,0">
+                            <Label Text="{Binding UserName}" 
+                               LineBreakMode="TailTruncation"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               TextColor="#333"
+                               Margin="0,0,5,2"
+                               LineHeight="1.2"/>
+                            <Label Text="{Binding Caption}" 
+                            LineBreakMode="WordWrap"
+                            Style="{DynamicResource CaptionStyle}"
+                            FontSize="16"
+                            TextColor="#333"
+                            Margin="0,0,10,10"/>
+                        </StackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

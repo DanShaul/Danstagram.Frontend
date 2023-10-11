@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Danstagram.Views.Feed.NewItemPage"
+             Shell.PresentationMode="ModalAnimated"
+             Title="{Binding Title}"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:services="clr-namespace:Danstagram.Services"
+             xmlns:local="clr-namespace:Danstagram.ViewModels.Feed" 
+             x:DataType="local:NewItemViewModel"
+             ios:Page.UseSafeArea="true">
+
+
+    <ContentPage.Resources>
+        <services:ByteToImageConverter x:Key="imgConverter"/>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout Spacing="5" Padding="0,10,0,0" HorizontalOptions="Fill">
+            <Label Text="{Binding Model.ImageOptions.Caption, StringFormat='Choose your {0}:'}" FontSize="Large"  Margin="0,0,0,0"/>
+            <ImageButton Command="{Binding ChoosePictureCommand}" Source="{Binding Path=Model.Image, Converter={StaticResource imgConverter}}" 
+                         HorizontalOptions="Fill" HeightRequest="400" Aspect="AspectFill"/>
+            <Label Text="{Binding Model.ImageOptions.ErrorMessage}" FontSize="Small" TextColor="Red"
+                   IsVisible="{Binding Model.ImageOptions.IsError}"/>
+            <Label Text="{Binding Model.CaptionOptions.Caption}" FontSize="Large" />
+            <Editor Text="{Binding Model.Caption, Mode=TwoWay}" 
+                    Placeholder="{Binding Model.CaptionOptions.Caption, StringFormat='Write your {0} here'}"
+                    IsEnabled="{Binding Model.CaptionOptions.IsEnabled}"
+                    FontSize="Medium" Margin="0" />
+            <Label Text="{Binding Model.CaptionOptions.ErrorMessage}" FontSize="Small" TextColor="Red"
+                   IsVisible="{Binding Model.CaptionOptions.IsError}"/>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Save" Command="{Binding PostCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

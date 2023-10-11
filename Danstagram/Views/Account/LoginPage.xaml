@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Danstagram.Views.Account.LoginPage"
+             xmlns:local="clr-namespace:Danstagram.ViewModels.Account"
+             xmlns:views="clr-namespace:Danstagram.Views.Common"
+             x:DataType="local:LoginViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Content>
+        <AbsoluteLayout VerticalOptions="FillAndExpand"  
+                HorizontalOptions="FillAndExpand">
+            <StackLayout Padding="10,0,10,0" AbsoluteLayout.LayoutFlags="All"  
+               AbsoluteLayout.LayoutBounds="0,0,1,1" VerticalOptions="CenterAndExpand">
+                <ContentView>
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" >
+                        <StackLayout Orientation="Horizontal"  HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image Source="icon_danstagram2.png" VerticalOptions="Center"
+                           Aspect="AspectFit"
+                           Margin="0,0,0,0"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ContentView>
+                <Frame BorderColor="LightGray" HasShadow="true" HeightRequest="50" CornerRadius="10" Padding="0">
+                    <StackLayout>
+                        <Editor Margin="0,0,0,0" 
+                                Text="{Binding Model.UserName, Mode=TwoWay}"
+                                Placeholder="{Binding Model.UserNameOptions.Caption}"
+                                FontSize="Medium"/>
+                    </StackLayout>
+                </Frame>
+                <Label Text="{Binding Model.UserNameOptions.ErrorMessage}" FontSize="Small" TextColor="Red"
+                   IsVisible="{Binding Model.UserNameOptions.IsError}"/>
+                <Frame BorderColor="LightGray" HasShadow="true" HeightRequest="50" CornerRadius="10" Padding="0">
+                    <StackLayout>
+                    <Entry Margin="0,0,0,0"
+                        Text="{Binding Model.Password, Mode=TwoWay}" 
+                        Placeholder="{Binding Model.PasswordOptions.Caption}" 
+                        IsPassword="true"
+                        FontSize="Medium"/>
+                    </StackLayout>
+                </Frame>
+                <Label Text="{Binding Model.PasswordOptions.ErrorMessage}" FontSize="Small" TextColor="Red"
+                   IsVisible="{Binding Model.PasswordOptions.IsError}"/>
+                <Label Text="{Binding Model.ErrorMessage}" FontSize="Small" TextColor="Red"
+                   IsVisible="{Binding Model.IsError}"/>
+                <Button BackgroundColor="SlateBlue" VerticalOptions="Center" Text="Log In" TextTransform="None" Command="{Binding LoginCommand}"/>
+                <Frame>
+                    <Grid>
+                        <BoxView Color="Gray"
+                                 HeightRequest="2"
+                                 WidthRequest="150"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Start" />
+                        <Label Text="OR" TextTransform="Uppercase" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <BoxView Color="Gray"
+                                 HeightRequest="2"
+                                 WidthRequest="150"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="End" />
+                    </Grid>
+                </Frame>
+
+                <Button BackgroundColor="SlateBlue" VerticalOptions="Center" Text="Sign Up" TextTransform="None" Command="{Binding SignUpCommand}"/>
+            </StackLayout>
+            <views:LoadingPanelView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding IsBusy}"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+
+</ContentPage>

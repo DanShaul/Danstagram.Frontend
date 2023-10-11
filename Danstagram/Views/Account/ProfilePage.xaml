@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Danstagram.Views.Account.ProfilePage"
+             xmlns:local="clr-namespace:Danstagram.ViewModels.Account"
+             xmlns:views="clr-namespace:Danstagram.Views.Common"
+             x:DataType="local:ProfileViewModel">
+
+    <Shell.TitleView>
+        <ContentView>
+            <Image Source="icon_danstagram.png"
+                           Aspect="AspectFit"
+                           Margin="0,10,0,10"/>
+        </ContentView>
+    </Shell.TitleView>
+    
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" Padding="10,0,10,0">
+            <Label Text="{Binding Model.UserName, StringFormat='Welcome {0}'}" 
+                   FontSize="32" 
+                   Margin="0,0,0,50"
+                   HorizontalOptions="Center" 
+                   VerticalOptions="StartAndExpand"/>
+            <Frame Padding="0" IsClippedToBounds="True" CornerRadius="30">
+            <Button Text="Post New Picture"
+                    TextTransform="None"
+                    Command="{Binding AddPictureCommand}"
+                    VerticalOptions="CenterAndExpand"/>
+            </Frame>
+            <Frame>
+                <Grid>
+                    <BoxView Color="Gray"
+                                 HeightRequest="2"
+                                 WidthRequest="150"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Start" />
+                    <Label Text="OR" TextTransform="Uppercase" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <BoxView Color="Gray"
+                                 HeightRequest="2"
+                                 WidthRequest="150"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="End" />
+                </Grid>
+            </Frame>
+            <Frame Padding="0" IsClippedToBounds="True" CornerRadius="30">
+            <Button Text="Sign Out" 
+                    TextTransform="None"
+                    Command="{Binding SignOutCommand}"/>
+            </Frame>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Danstagram.Views.Feed.CommentSectionPage"
+             xmlns:interactions="clr-namespace:Danstagram.Models.Interactions"
+             xmlns:local="clr-namespace:Danstagram.ViewModels.Feed"
+             Title="{Binding Title}"
+             Shell.NavBarIsVisible="true"
+             Shell.TabBarIsVisible="false"
+             x:DataType="local:CommentSectionViewModel">
+
+    <RefreshView Command="{Binding LoadCommentsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <CollectionView x:Name="CommentsListView"
+                ItemsSource="{Binding Model.CommentList}"
+                SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                        <Frame BorderColor="LightGray" HasShadow="true" CornerRadius="10" Padding="0">
+                            <StackLayout Padding="10" x:DataType="{x:Type interactions:CommentModel}">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                    <Label Text="{Binding UserName}" 
+                                FontSize="Medium" 
+                                TextColor="#333" 
+                                VerticalOptions="Center" 
+                                HorizontalOptions="Start" 
+                                Margin="0,0,0,0" />
+                                    <Label Text="{Binding CreatedDate}" 
+                                FontSize="Medium" 
+                                TextColor="#333" 
+                                VerticalOptions="Center" 
+                                HorizontalOptions="Start" 
+                                Margin="0,0,0,0" />
+                                </StackLayout>
+                                <Label Text="{Binding Message}" 
+                                FontSize="Medium" 
+                                TextColor="#333" 
+                                VerticalOptions="Center" 
+                                HorizontalOptions="Start" 
+                                Margin="0,0,0,0" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+            <Frame BorderColor="LightGray" HasShadow="true" CornerRadius="10" Padding="10">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Editor Margin="0,0,0,0" 
+                        Text="{Binding Model.Message, Mode=TwoWay}"
+                        Placeholder="{Binding Model.MessageOptions.Caption}"
+                        HorizontalOptions="FillAndExpand"
+                        FontSize="Medium"/>
+                    <Frame IsClippedToBounds="True" CornerRadius="10" Padding="0">
+                        <Button Margin="0,0,0,0"
+                        Text="Send"
+                        HorizontalOptions="End"
+                        Command="{Binding AddCommentCommand}"/>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </RefreshView>
+
+</ContentPage>
