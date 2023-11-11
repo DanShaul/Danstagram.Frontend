@@ -11,7 +11,8 @@ namespace Danstagram.Services
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value.GetType() != typeof(byte[]))
+            if(value == null) { return null; }  
+            if(value != null && value.GetType() != typeof(byte[]))
             {
                 throw new ArgumentException("Wrong value type");
             }

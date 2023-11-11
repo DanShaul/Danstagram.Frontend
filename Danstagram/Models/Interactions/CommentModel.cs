@@ -13,7 +13,7 @@ namespace Danstagram.Models.Interactions
             this.Id = comment.Id;
             this.Message = comment.Message;
             this.UserId = comment.UserId;
-            this.ItemId = comment.ItemId;
+            this.FeedItemId = comment.FeedItemId;
             this.UserName = comment.UserName;
             this.CreatedDate = comment.CreatedDate;
         }
@@ -23,8 +23,8 @@ namespace Danstagram.Models.Interactions
         private Guid id;
         public Guid Id { get { return id; } set { SetProperty(ref id, value); } }
 
-        private Guid itemId;
-        public Guid ItemId { get { return itemId; } set { SetProperty(ref itemId, value); } }
+        private Guid feedItemId;
+        public Guid FeedItemId { get { return feedItemId; } set { SetProperty(ref feedItemId, value); } }
 
         private Guid userId;
         public Guid UserId { get { return userId; } set { SetProperty(ref userId, value); } }

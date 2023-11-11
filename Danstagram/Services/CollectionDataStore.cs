@@ -56,9 +56,13 @@ namespace Danstagram.Services
             return await Task.Run(() => entityCollection.FirstOrDefault(filter.Compile()));
         }
 
-        public Task LoadDataFromBackend()
+        public async Task LoadDataFromBackend(IReadOnlyCollection<T> list)
         {
-            throw new NotImplementedException();
+            entityCollection.Clear();
+            foreach (var item in list)
+            {
+                entityCollection.Add(item);
+            }
         }
 
         public async Task UpdateAsync(T entity)

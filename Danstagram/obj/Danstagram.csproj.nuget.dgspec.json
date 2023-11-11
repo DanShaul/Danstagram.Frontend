@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram\\Danstagram.csproj": {}
+    "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram\\Danstagram.csproj": {}
   },
   "projects": {
-    "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram\\Danstagram.csproj": {
+    "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram\\Danstagram.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram\\Danstagram.csproj",
+        "projectUniqueName": "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram\\Danstagram.csproj",
         "projectName": "Danstagram",
-        "projectPath": "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram\\Danstagram.csproj",
+        "projectPath": "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram\\Danstagram.csproj",
         "packagesPath": "C:\\Users\\dansh\\.nuget\\packages\\",
-        "outputPath": "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram\\obj\\",
+        "outputPath": "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -27,7 +27,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\Danstagram\\packages": {},
+          "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -51,6 +51,14 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "System.Net.Http.Json": {
+              "target": "Package",
+              "version": "[7.0.1, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",

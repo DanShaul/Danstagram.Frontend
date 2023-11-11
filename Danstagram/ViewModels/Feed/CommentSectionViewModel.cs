@@ -70,7 +70,7 @@ namespace Danstagram.ViewModels.Feed
                             Id = Guid.NewGuid(),
                             UserId = ((App)App.Current).UserId,
                             UserName = ((App)App.Current).UserName,
-                            ItemId = ItemId,
+                            FeedItemId = ItemId,
                             Message = Model.Message,
                             CreatedDate = DateTimeOffset.UtcNow
                         };

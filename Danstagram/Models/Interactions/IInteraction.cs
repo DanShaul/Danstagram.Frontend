@@ -6,7 +6,7 @@ namespace Danstagram.Models.Interactions
 {
     public interface IInteraction : IEntity
     {
-        Guid ItemId { get; set; }
+        Guid FeedItemId { get; set; }
 
         Guid UserId { get; set; }
     }

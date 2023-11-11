@@ -20,3 +20,25 @@ D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\
 D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram\obj\Debug\netstandard2.0\refint\Danstagram.dll
 D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram\obj\Debug\netstandard2.0\Danstagram.pdb
 D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram\obj\Debug\netstandard2.0\Views\Account\ProfilePage.xaml.g.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\bin\Debug\netstandard2.0\Danstagram.deps.json
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\bin\Debug\netstandard2.0\Danstagram.dll
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\bin\Debug\netstandard2.0\ref\Danstagram.dll
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\bin\Debug\netstandard2.0\Danstagram.pdb
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Danstagram.csproj.AssemblyReference.cache
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Danstagram.GeneratedMSBuildEditorConfig.editorconfig
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\App.xaml.g.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\AppShell.xaml.g.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Views\AboutPage.xaml.g.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Views\Account\LoginPage.xaml.g.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Views\Account\ProfilePage.xaml.g.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Views\Common\LoadingPanelView.xaml.g.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Views\Feed\CommentSectionPage.xaml.g.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Views\Feed\FeedPage.xaml.g.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Views\Feed\NewItemPage.xaml.g.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Danstagram.AssemblyInfoInputs.cache
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Danstagram.AssemblyInfo.cs
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Danstagram.csproj.CoreCompileInputs.cache
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\XamlC.stamp
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Danstagram.dll
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\refint\Danstagram.dll
+E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Danstagram.pdb

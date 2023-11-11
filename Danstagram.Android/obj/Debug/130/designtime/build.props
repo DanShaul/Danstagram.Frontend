@@ -25,11 +25,11 @@ androidgeneratejnimarshalmethods=false
 os=windows_nt
 androidincludedebugsymbols=true
 androidpackagenamingpolicy=lowercasecrc64
-_nugetassetstimestamp=638322971493817326
+_nugetassetstimestamp=638343055644186201
 typemapkind=strings-asm
 androidsupportedabis=arm64-v8a
 armeabi-v7a
 x86
 x86_64
 androidmanifestplaceholders=
-projectfullpath=d:\necessary\open uni matalot\sadna be tihnut monhe atzamim\frontend\danstagram\danstagram.android\danstagram.android.csproj
+projectfullpath=e:\necessary\studies\university\openuniversity\sadna\danstagram\danstagram.frontend\danstagram.android\danstagram.android.csproj

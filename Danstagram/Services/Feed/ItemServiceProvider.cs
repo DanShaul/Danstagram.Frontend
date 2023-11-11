@@ -11,7 +11,7 @@ namespace Danstagram.Services.Feed
     class ItemServiceProvider : IItemServiceProvider<PictureItem>
     {
         #region Properties
-
+        private readonly FeedApi feedApi;
         private readonly IDataStore<PictureItem> dataStore;
 
         #endregion
@@ -21,6 +21,7 @@ namespace Danstagram.Services.Feed
 
         public ItemServiceProvider()
         {
+            feedApi = new FeedApi();
             dataStore = DependencyService.Get<IDataStore<PictureItem>>();
         }
 
@@ -31,15 +32,21 @@ namespace Danstagram.Services.Feed
 
         public async Task CreateItemAsync(PictureItem item)
         {
+            Console.WriteLine("-----Creating Item-----");
+            await feedApi.CreateItemAsync(item).ConfigureAwait(false);
             await dataStore.CreateAsync(item);
 
         }
         public async Task<IReadOnlyCollection<PictureItem>> GetAllItemsAsync()
         {
+            Console.WriteLine("-----Getting Items-----");
+            var databasePictures = await feedApi.GetAllItemsAsync().ConfigureAwait(false);
+            await dataStore.LoadDataFromBackend(databasePictures);
             return await dataStore.GetAllAsync();
         }
         public async Task<PictureItem> GetItemAsync(Guid id)
         {
+            Console.WriteLine("-----Getting Single Item-----");
             return await dataStore.GetAsync(id);
         }
 

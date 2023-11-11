@@ -14,7 +14,7 @@ namespace Danstagram.Services
         Task<IReadOnlyCollection<T>> GetAllAsync(Expression<Func<T, bool>> filter);
         Task UpdateAsync(T entity);
         Task DeleteAsync(Guid id);
-        Task LoadDataFromBackend();
+        Task LoadDataFromBackend(IReadOnlyCollection<T> list);
         
     }
 }

@@ -62,8 +62,7 @@ namespace Danstagram.ViewModels.Feed
                     {
                         Id = Guid.NewGuid(),
                         UserId = ((App)App.Current).UserId,
-                        ItemId = item.Id,
-                        CreatedDate = DateTime.UtcNow
+                        FeedItemId = item.Id,
                     });
                 });
             }

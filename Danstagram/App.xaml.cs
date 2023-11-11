@@ -24,6 +24,19 @@ namespace Danstagram
         public string UserName { get; set; }
         public App()
         {
+            /*var feedApi = new FeedApi();
+            var webClient = new WebClient();
+            var picture = new PictureItem
+            {
+                UserId = new Guid("44897228-2a54-4334-9227-73059dfad105"),
+                UserName = "donkey",
+                Caption = "my new someth1256ing",
+                Image = new byte[3]
+            };
+            var task = feedApi.CreateItemAsync(picture);
+            feedApi.GetItemAsync(new Guid("8702ab95-822c-44fe-bcf6-90006c32de91"));
+            feedApi.GetAllItemsAsync();
+            Console.WriteLine("Break");*/
             UserId = Guid.Empty;
             UserName = "";
             Console.WriteLine("Started Loading App");
@@ -56,7 +69,7 @@ namespace Danstagram
                 {
                     Id = Guid.NewGuid(),
                     UserId = tempUserId,
-                    ItemId = pictureId
+                    FeedItemId = pictureId
                 });
                 var mockCommentCollection = new Collection<CommentModel>();
                 mockCommentCollection.Add(new CommentModel
@@ -64,7 +77,7 @@ namespace Danstagram
                     Id = Guid.NewGuid(),
                     UserId = tempUserId,
                     UserName = tempUserName,
-                    ItemId = pictureId,
+                    FeedItemId = pictureId,
                     Message = "My first CommentModel",
                     CreatedDate = DateTimeOffset.UtcNow
 
@@ -83,7 +96,7 @@ namespace Danstagram
                     }
                 };
                 webClient.Dispose();
-               
+
                 DependencyService.RegisterSingleton<ICollection<PictureItem>>(mockCollection);
                 DependencyService.RegisterSingleton<ICollection<LikeModel>>(mockLikeCollection);
                 DependencyService.RegisterSingleton<ICollection<CommentModel>>(mockCommentCollection);
