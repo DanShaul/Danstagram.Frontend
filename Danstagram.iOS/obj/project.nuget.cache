@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "n2KLg+Np2caWsOgXJ2Bmt+HHtfzBhwL8i6kGVaZ9Zpzn20BFDIa02FHfUOlIhTbeUu6/yK58KqS1ytCcg91+ig==",
+  "dgSpecHash": "eb6gdcQk/8yW5fJIhkzuhicSZImFaJpY0PpKRs1IhN01uAvYaT73iyW2Fc970ge1wWcS2v0STk3ZFGIXNFKtaA==",
   "success": true,
-  "projectFilePath": "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram.iOS\\Danstagram.iOS.csproj",
+  "projectFilePath": "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram.iOS\\Danstagram.iOS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dansh\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "C:\\Users\\dansh\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",

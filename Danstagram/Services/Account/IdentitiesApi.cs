@@ -8,31 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Danstagram.Models.Account;
 using System.Net;
+using Xamarin.Forms;
+using System.Threading;
+using Danstagram.Services.Common;
 
 namespace Danstagram.Services.Feed
 {
-    public class IdentitiesApi
+    public class IdentitiesApi : Api
     {
         #region Constructors
         public IdentitiesApi()
         {
-            var handler = new HttpClientHandler();
-            handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-            handler.ServerCertificateCustomValidationCallback =
-                (httpRequestMessage, cert, cetChain, policyErrors) =>
-                {
-                    return true;
-                };
-            client = new HttpClient(handler);
-            client.BaseAddress = new Uri(url);
-            client.DefaultRequestHeaders.Accept.Add(
+            Client.BaseAddress = new Uri(url);
+            Client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
         }
         #endregion
 
         #region Properties
         private readonly string url = "https://10.0.2.2:5003";
-        private readonly HttpClient client;
 
         #endregion
 
@@ -48,12 +42,14 @@ namespace Danstagram.Services.Feed
             var jsonBody = JsonConvert.SerializeObject(userDto);
             Console.WriteLine(jsonBody);
             var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/identities", content).ConfigureAwait(false);
-            if((int) response.StatusCode == 404)
+            try
+            {
+                return await Client.PostAsync("/identities", content).WrapTimeout();
+            }
+            catch (TaskCanceledException)
             {
                 throw new HttpRequestException("Internal server error (Maybe the identities service is not up)");
             }
-            return response;
         }
 
         public async Task<HttpResponseMessage> AuthenticateUserAsync(string username,string password)
@@ -63,12 +59,16 @@ namespace Danstagram.Services.Feed
                 userName = username,
                 password = password
             };
-
             var jsonBody = JsonConvert.SerializeObject(body);
-            var content = new StringContent(jsonBody,Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/identities/auth",content).ConfigureAwait(false);
-
-            return response;
+            var content = new StringContent(jsonBody,Encoding .UTF8, "application/json");
+            try
+            {
+                return await Client.PostAsync("/identities/auth", content).WrapTimeout();
+            }
+            catch (TaskCanceledException)
+            {
+                throw new HttpRequestException("Internal server error (Maybe the identities service is not up)");
+            }
         }
         #endregion
     }

@@ -35,7 +35,7 @@
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
-    <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+    <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy}">
         <CollectionView x:Name="ItemsListView"
                 ItemsSource="{Binding Model.ItemList}"
                 SelectionMode="None">
@@ -110,6 +110,20 @@
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <FlexLayout Padding="30"
+                        Direction="Column"
+                        JustifyContent="Center"
+                        VerticalOptions="Fill"
+                        BackgroundColor="AliceBlue"
+                         >
+                    <Label
+                    Text="{Binding Model.ErrorMessage, Mode=TwoWay}"
+                    FontSize="24"
+                    Margin="0,0,0,20"
+                    />
+                </FlexLayout>
+            </CollectionView.EmptyView>
         </CollectionView>
     </RefreshView>
 </ContentPage>

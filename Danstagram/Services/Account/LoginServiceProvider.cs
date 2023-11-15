@@ -63,7 +63,7 @@ namespace Danstagram.Services.Account
         {
             Console.WriteLine("----Authenticating Users----");
             var response = await identitiesApi.AuthenticateUserAsync(username, password);
-            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var content = await response.Content.ReadAsStringAsync();
 
             try
             {

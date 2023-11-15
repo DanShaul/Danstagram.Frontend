@@ -1299,3 +1299,12 @@ E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Front
 E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram.Android\obj\Debug\130\android\assets\System.Text.Encodings.Web.dll
 E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram.Android\obj\Debug\130\android\assets\System.Text.Json.dll
 E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram.Android\obj\Debug\130\android\assets\System.Threading.Tasks.Extensions.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.Android\obj\Debug\130\android\assets\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.Android\obj\Debug\130\android\assets\Newtonsoft.Json.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.Android\obj\Debug\130\android\assets\System.Buffers.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.Android\obj\Debug\130\android\assets\System.Memory.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.Android\obj\Debug\130\android\assets\System.Net.Http.Json.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.Android\obj\Debug\130\android\assets\System.Runtime.CompilerServices.Unsafe.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.Android\obj\Debug\130\android\assets\System.Text.Encodings.Web.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.Android\obj\Debug\130\android\assets\System.Text.Json.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.Android\obj\Debug\130\android\assets\System.Threading.Tasks.Extensions.dll

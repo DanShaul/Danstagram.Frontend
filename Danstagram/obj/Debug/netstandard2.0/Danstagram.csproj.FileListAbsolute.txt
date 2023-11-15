@@ -42,3 +42,4 @@ E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Front
 E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Danstagram.dll
 E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\refint\Danstagram.dll
 E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram\obj\Debug\netstandard2.0\Danstagram.pdb
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram\obj\Debug\netstandard2.0\Views\ErrorPage.xaml.g.cs

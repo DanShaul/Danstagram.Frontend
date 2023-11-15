@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LJvXqbNpLnon0KkiG+N1iihIP0LuPWxwZge4WBbv+WjMACCPei4lq08tyKEmbDNfP+GFam23kDFUawQeWhSOsw==",
+  "dgSpecHash": "e5u8NKV5M/jFAf1j7VqFMrwrfJelaAMwMYZs3R91CnLYLPbqt33BOe4s50VgcoeD3V+iN/rKdI3ErW6wrbsWmw==",
   "success": true,
-  "projectFilePath": "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram\\Danstagram.csproj",
+  "projectFilePath": "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram\\Danstagram.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dansh\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "C:\\Users\\dansh\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",

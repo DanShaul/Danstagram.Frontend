@@ -15,7 +15,7 @@ namespace Danstagram.Services
     {
         private readonly ICollection<T> entityCollection;
         public CollectionDataStore(){
-            this.entityCollection = DependencyService.Get<ICollection<T>>();
+            this.entityCollection = new Collection<T>();
         }
         public async Task CreateAsync(T entity)
         {

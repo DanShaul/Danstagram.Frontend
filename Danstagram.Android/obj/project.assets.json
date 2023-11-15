@@ -3854,11 +3854,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram.Android\\Danstagram.Android.csproj",
+      "projectUniqueName": "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram.Android\\Danstagram.Android.csproj",
       "projectName": "Danstagram.Android",
-      "projectPath": "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram.Android\\Danstagram.Android.csproj",
+      "projectPath": "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram.Android\\Danstagram.Android.csproj",
       "packagesPath": "C:\\Users\\dansh\\.nuget\\packages\\",
-      "outputPath": "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram.Android\\obj\\",
+      "outputPath": "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -3874,14 +3874,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\packages": {},
+        "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\Danstagram\\packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "monoandroid13.0": {
           "projectReferences": {
-            "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram\\Danstagram.csproj": {
-              "projectPath": "E:\\Necessary\\Studies\\University\\OpenUniversity\\Sadna\\Danstagram\\Danstagram.Frontend\\Danstagram\\Danstagram.csproj"
+            "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram\\Danstagram.csproj": {
+              "projectPath": "D:\\Necessary\\Open Uni Matalot\\Sadna Be Tihnut monhe atzamim\\FrontEnd\\Danstagram\\Danstagram\\Danstagram.csproj"
             }
           }
         }

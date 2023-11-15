@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -24,87 +25,35 @@ namespace Danstagram
         public string UserName { get; set; }
         public App()
         {
-            /*var feedApi = new FeedApi();
-            var webClient = new WebClient();
-            var picture = new PictureItem
-            {
-                UserId = new Guid("44897228-2a54-4334-9227-73059dfad105"),
-                UserName = "donkey",
-                Caption = "my new someth1256ing",
-                Image = new byte[3]
-            };
-            var task = feedApi.CreateItemAsync(picture);
-            feedApi.GetItemAsync(new Guid("8702ab95-822c-44fe-bcf6-90006c32de91"));
-            feedApi.GetAllItemsAsync();
-            Console.WriteLine("Break");*/
             UserId = Guid.Empty;
             UserName = "";
+
             Console.WriteLine("Started Loading App");
             InitializeComponent();
             MainPage = new AppShell();
+
             Shell.Current.GoToAsync("//LoginPage");
+
             Task.Run(() =>
             {
-                var webClient = new WebClient();
-                var pictureId = Guid.NewGuid();
-                var mockUserCollection = new Collection<User>();
-                var tempUserId = Guid.NewGuid();
-                var tempUserName = "randuser1";
-                mockUserCollection.Add(new User
-                {
-                    Id = tempUserId,
-                    Username = tempUserName,
-                    Password = "randuser1"
 
-                });
-                mockUserCollection.Add(new User
+                var handler = new HttpClientHandler();
+                handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+                handler.ServerCertificateCustomValidationCallback =
+                (httpRequestMessage, cert, cetChain, policyErrors) =>
                 {
-                    Id = Guid.NewGuid(),
-                    Username = "dan",
-                    Password = "dan"
-
-                });
-                var mockLikeCollection = new Collection<LikeModel>();
-                mockLikeCollection.Add(new LikeModel
-                {
-                    Id = Guid.NewGuid(),
-                    UserId = tempUserId,
-                    FeedItemId = pictureId
-                });
-                var mockCommentCollection = new Collection<CommentModel>();
-                mockCommentCollection.Add(new CommentModel
-                {
-                    Id = Guid.NewGuid(),
-                    UserId = tempUserId,
-                    UserName = tempUserName,
-                    FeedItemId = pictureId,
-                    Message = "My first CommentModel",
-                    CreatedDate = DateTimeOffset.UtcNow
-
-                });
-                var mockCollection = new Collection<PictureItem>
-                {
-                    new PictureItem
-                    {
-                        Id = pictureId,
-                        UserId = tempUserId,
-                        UserName = tempUserName,
-                        Image = webClient.DownloadData("https://imgv3.fotor.com/images/cover-photo-image/a-beautiful-girl-with-gray-hair-and-lucxy-neckless-generated-by-Fotor-AI.jpg"),
-                        Caption = "my lemon1",
-                        LikeCount = 0,
-                        CreatedDate = DateTimeOffset.UtcNow
-                    }
+                    return true;
                 };
-                webClient.Dispose();
+                var client = new HttpClient(handler,false);
 
-                DependencyService.RegisterSingleton<ICollection<PictureItem>>(mockCollection);
-                DependencyService.RegisterSingleton<ICollection<LikeModel>>(mockLikeCollection);
-                DependencyService.RegisterSingleton<ICollection<CommentModel>>(mockCommentCollection);
-                DependencyService.RegisterSingleton<ICollection<User>>(mockUserCollection);
+
+                DependencyService.RegisterSingleton<HttpClient>(client);
+
                 DependencyService.RegisterSingleton<IDataStore<PictureItem>>(new CollectionDataStore<PictureItem>());
                 DependencyService.RegisterSingleton<IDataStore<LikeModel>>(new CollectionDataStore<LikeModel>());
                 DependencyService.RegisterSingleton<IDataStore<CommentModel>>(new CollectionDataStore<CommentModel>());
                 DependencyService.RegisterSingleton<IDataStore<User>>(new CollectionDataStore<User>());
+
                 DependencyService.RegisterSingleton<ILoginServiceProvider>(new LoginServiceProvider());
                 DependencyService.RegisterSingleton<IItemServiceProvider<PictureItem>>(new ItemServiceProvider());
                 DependencyService.RegisterSingleton<IInteractionServiceProvider<LikeModel>>(new InteractionServiceProvider<LikeModel>());
@@ -112,7 +61,6 @@ namespace Danstagram
             });
             Console.WriteLine("Finished Loading App");
         }
-
         protected override void OnStart()
         {
         }

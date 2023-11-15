@@ -1,4 +1,5 @@
 ﻿using Danstagram.Models;
+using Danstagram.Services.Common;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -40,19 +41,17 @@ namespace Danstagram.Services.Feed
         #region Methods
         public async Task<IReadOnlyCollection<PictureItem>> GetAllItemsAsync()
         {
-            var response = await client.GetAsync("/items").ConfigureAwait(false);
-
-            try
-            {
+            HttpResponseMessage response;
+            try {
+                response = await client.GetAsync("/items").WrapTimeout();
                 response.EnsureSuccessStatusCode();
             }
-            catch (Exception ex)
+            catch (TaskCanceledException)
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new HttpRequestException("Internal server error(Maybe the feed service is not up)");
             }
 
-            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<IReadOnlyCollection<PictureItem>>(content);
         }
 
@@ -66,35 +65,35 @@ namespace Danstagram.Services.Feed
             };
 
             var jsonBody = JsonConvert.SerializeObject(body);
-            Console.WriteLine(jsonBody);
             var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/items",content).ConfigureAwait(false);
 
+            HttpResponseMessage response;
             try
             {
+                response = await client.PostAsync("/items", content);
                 response.EnsureSuccessStatusCode();
             }
-            catch (Exception ex)
+            catch (TaskCanceledException)
             {
-                Console.WriteLine(ex.Message);
-            }  
+                throw new HttpRequestException("Internal server error(Maybe the feed service is not up)");
+            }
         }
 
         public async Task<PictureItem> GetItemAsync(Guid id)
         {
-            var response = await client.GetAsync($"/items/{id}").ConfigureAwait(false);
-
+            HttpResponseMessage response;
             try
             {
+                response = await client.GetAsync($"/items/{id}");
                 response.EnsureSuccessStatusCode();
+
             }
-            catch (Exception ex)
+            catch (TaskCanceledException)
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new HttpRequestException("Internal server error(Maybe the feed service is not up)");
             }
 
-            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<PictureItem>(content);
         }
         #endregion

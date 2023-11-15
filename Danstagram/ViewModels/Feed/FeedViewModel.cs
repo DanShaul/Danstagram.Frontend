@@ -4,6 +4,7 @@ using Danstagram.Models.Interactions;
 using Danstagram.Services.Feed;
 using Danstagram.Services.Interactions;
 using Danstagram.Views;
+using Danstagram.Views.Account;
 using Danstagram.Views.Feed;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Danstagram.ViewModels.Feed
@@ -26,10 +28,11 @@ namespace Danstagram.ViewModels.Feed
             Model = new FeedModel();
 
             AddItemCommand = new Command(async () => await OnAddItemClicked());
-            LoadItemsCommand = new Command(async () => await LoadItemCollectionAsync());
+            LoadItemsCommand = new Command(() => OnRefresh());
             LikeCommand = new Command(async (id) => await OnLikeClicked((Guid)id));
             CommentCommand = new Command(async (id) => await OnCommentClicked((Guid)id));
             SignOutCommand = new Command(async () => await Shell.Current.GoToAsync("//LoginPage"));
+
         }
 
         #endregion
@@ -40,11 +43,16 @@ namespace Danstagram.ViewModels.Feed
         public ICommand LikeCommand { get; }
         public ICommand CommentCommand { get; }
         public ICommand SignOutCommand { get; }
-
         #endregion
         #region Methods
+        public void OnRefresh()
+        {
+            IsBusy = true;
+            LoadItemCollectionAsync();
+        }
         public void OnAppearing()
         {
+            
             IsBusy = true;
         }
         private async Task OnLikeClicked(Guid id){
@@ -53,18 +61,17 @@ namespace Danstagram.ViewModels.Feed
             item.IsLiked = !item.IsLiked;
             if (item.IsLiked)
             {
-            await Task.Run(
-                async () =>
-                {
-                    var likeServiceProvider = DependencyService.Get<IInteractionServiceProvider<LikeModel>>();
-
-                    await likeServiceProvider.CreateInteractionAsync(new LikeModel
+                await Task.Run(
+                    async () =>
                     {
-                        Id = Guid.NewGuid(),
-                        UserId = ((App)App.Current).UserId,
-                        FeedItemId = item.Id,
+                        var likeServiceProvider = DependencyService.Get<IInteractionServiceProvider<LikeModel>>();
+                        await likeServiceProvider.CreateInteractionAsync(new LikeModel
+                        {
+                            Id = Guid.NewGuid(),
+                            UserId = ((App)App.Current).UserId,
+                            FeedItemId = item.Id,
+                        });
                     });
-                });
             }
             else
             {
@@ -88,19 +95,37 @@ namespace Danstagram.ViewModels.Feed
         private async Task LoadItemCollectionAsync()
         {
             Model.ItemList.Clear();
+
             var itemServiceProvider = DependencyService.Get<IItemServiceProvider<PictureItem>>();
             var likeServiceProvider = DependencyService.Get<IInteractionServiceProvider<LikeModel>>();
-            
-            var userId = ((App)App.Current).UserId;
-            var existingItems = await itemServiceProvider.GetAllItemsAsync();
-            foreach (var item in existingItems)
+            IReadOnlyCollection<PictureItem> existingItems;
+            try
             {
-                var likes = await likeServiceProvider.GetItemInteractionsAsync(item.Id);
-                var newItem = new FeedModel.FeedItem(item);
-                newItem.IsLiked = (await likeServiceProvider.GetItemUserInteractionsAsync(item.Id, ((App)App.Current).UserId)).Count != 0;
-                newItem.LikeCount = likes.Count;
-                Model.ItemList.Add(newItem);
+                existingItems = await itemServiceProvider.GetAllItemsAsync();
+            }catch(Exception ex)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Model.ErrorMessage = ex.Message;
+                });
+                Console.WriteLine("Hello");
+                IsBusy = false;
+                return;
             }
+
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                foreach (var item in existingItems)
+                {
+                    var likes = await likeServiceProvider.GetItemInteractionsAsync(item.Id);
+
+                    var newItem = new FeedModel.FeedItem(item);
+                    newItem.IsLiked = (await likeServiceProvider.GetItemUserInteractionsAsync(item.Id, ((App)App.Current).UserId)).Count != 0;
+                    newItem.LikeCount = likes.Count;
+
+                    Model.ItemList.Add(newItem);
+                }
+            });
             IsBusy = false;
         }
         private async Task LoadItemAsync(FeedModel.FeedItem item)

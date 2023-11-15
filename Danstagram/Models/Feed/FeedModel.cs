@@ -58,7 +58,9 @@ namespace Danstagram.Models.Feed
         #endregion
 
         #region Properties
-
+        private String errorMessage = "";
+        public String ErrorMessage { get { return errorMessage; } set { SetProperty(ref errorMessage, value); } }
+        
         private ObservableCollection<FeedItem> itemList = new ObservableCollection<FeedItem>();
         public ObservableCollection<FeedItem> ItemList { get{ return itemList; } set { SetProperty(ref itemList, value); } }
 

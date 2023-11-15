@@ -68,10 +68,6 @@ namespace Danstagram.ViewModels.Account
 
                         var loginServiceProvider = DependencyService.Get<ILoginServiceProvider>();
                         var userId = await loginServiceProvider.AuthenticateUser(Model.UserName, Model.Password);
-                        if (userId == Guid.Empty)
-                        {
-                            throw new UnauthorizedAccessException("Invalid User Name or Password");
-                        }
 
                         ((App)Application.Current).UserId = userId;
                         ((App)Application.Current).UserName = Model.UserName;
@@ -83,13 +79,9 @@ namespace Danstagram.ViewModels.Account
                         loginException = exception;
                     }
                     if (loginException == null)
-                    {
                         await ProcceedToFrontPage();
-                    }
                     else
-                    {
                         Model.SetErrorMessage(loginException.Message);
-                    }
                     IsBusy = false;
 
                 });
