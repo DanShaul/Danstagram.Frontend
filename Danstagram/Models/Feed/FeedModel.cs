@@ -1,4 +1,7 @@
 ﻿using Danstagram.Models.Common;
+using Danstagram.Models.Interactions;
+using Danstagram.Services.Feed;
+using Danstagram.Services.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +11,7 @@ using Xamarin.Forms;
 
 namespace Danstagram.Models.Feed
 {
-    class FeedModel : BindableBase
+    public class FeedModel : BindableErrorBase
     {
         #region Classes
 
@@ -58,9 +61,8 @@ namespace Danstagram.Models.Feed
         #endregion
 
         #region Properties
-        private String errorMessage = "";
-        public String ErrorMessage { get { return errorMessage; } set { SetProperty(ref errorMessage, value); } }
-        
+        public IInteractionServiceProvider<LikeModel> LikeServiceProvider = DependencyService.Get<IInteractionServiceProvider<LikeModel>>();
+        public IItemServiceProvider<PictureItem> ItemServiceProvider = DependencyService.Get<IItemServiceProvider<PictureItem>>();
         private ObservableCollection<FeedItem> itemList = new ObservableCollection<FeedItem>();
         public ObservableCollection<FeedItem> ItemList { get{ return itemList; } set { SetProperty(ref itemList, value); } }
 

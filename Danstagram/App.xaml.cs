@@ -28,7 +28,6 @@ namespace Danstagram
             UserId = Guid.Empty;
             UserName = "";
 
-            Console.WriteLine("Started Loading App");
             InitializeComponent();
             MainPage = new AppShell();
 
@@ -36,41 +35,15 @@ namespace Danstagram
 
             Task.Run(() =>
             {
-
-                var handler = new HttpClientHandler();
-                handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-                handler.ServerCertificateCustomValidationCallback =
-                (httpRequestMessage, cert, cetChain, policyErrors) =>
-                {
-                    return true;
-                };
-                var client = new HttpClient(handler,false);
-
-
-                DependencyService.RegisterSingleton<HttpClient>(client);
-
                 DependencyService.RegisterSingleton<IDataStore<PictureItem>>(new CollectionDataStore<PictureItem>());
                 DependencyService.RegisterSingleton<IDataStore<LikeModel>>(new CollectionDataStore<LikeModel>());
                 DependencyService.RegisterSingleton<IDataStore<CommentModel>>(new CollectionDataStore<CommentModel>());
-                DependencyService.RegisterSingleton<IDataStore<User>>(new CollectionDataStore<User>());
 
                 DependencyService.RegisterSingleton<ILoginServiceProvider>(new LoginServiceProvider());
                 DependencyService.RegisterSingleton<IItemServiceProvider<PictureItem>>(new ItemServiceProvider());
                 DependencyService.RegisterSingleton<IInteractionServiceProvider<LikeModel>>(new InteractionServiceProvider<LikeModel>());
                 DependencyService.RegisterSingleton<IInteractionServiceProvider<CommentModel>>(new InteractionServiceProvider<CommentModel>());
             });
-            Console.WriteLine("Finished Loading App");
-        }
-        protected override void OnStart()
-        {
-        }
-
-        protected override void OnSleep()
-        {
-        }
-
-        protected override void OnResume()
-        {
         }
     }
 }

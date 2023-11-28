@@ -16,8 +16,8 @@ namespace Danstagram.Models.Feed
         private TextEditOptions<string> captionOptions = new TextEditOptions<string>();
         public TextEditOptions<string> CaptionOptions { get {  return captionOptions; } set { SetProperty(ref captionOptions, value); } }
 
-        private TextEditOptions<byte[]> imageOptions = new TextEditOptions<byte[]>();
-        public TextEditOptions<byte[]> ImageOptions { get { return imageOptions; } set { SetProperty(ref imageOptions, value); } }
+        private EditBaseOptions<byte[]> imageOptions = new EditBaseOptions<byte[]>();
+        public EditBaseOptions<byte[]> ImageOptions { get { return imageOptions; } set { SetProperty(ref imageOptions, value); } }
 
         #endregion
     }

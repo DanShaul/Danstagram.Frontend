@@ -14,36 +14,39 @@ using System.Threading.Tasks;
 
 namespace Danstagram.Services.Feed
 {
-    public class FeedApi
+    public class FeedApi : Api
     {
         #region Constructors
         public FeedApi() {
-            var handler = new HttpClientHandler();
-            handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-            handler.ServerCertificateCustomValidationCallback =
-                (httpRequestMessage, cert, cetChain, policyErrors) =>
-                {
-                    return true;
-                };
-            client = new HttpClient(handler);
-            client.BaseAddress = new Uri(url);
-            client.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/json"));
+            Client.BaseAddress = new Uri(url);
         }
         #endregion
 
         #region Properties
         private readonly string url = "https://10.0.2.2:5001";
-        private readonly HttpClient client;
 
         #endregion
 
         #region Methods
+        public async Task<bool> IsUp()
+        {
+            HttpResponseMessage response;
+            try
+            {
+                response = await Client.GetAsync("/health").WrapTimeout();
+                response.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (TaskCanceledException)
+            {
+                return false;
+            }
+        }
         public async Task<IReadOnlyCollection<PictureItem>> GetAllItemsAsync()
         {
             HttpResponseMessage response;
             try {
-                response = await client.GetAsync("/items").WrapTimeout();
+                response = await Client.GetAsync("/items").WrapTimeout();
                 response.EnsureSuccessStatusCode();
             }
             catch (TaskCanceledException)
@@ -70,7 +73,7 @@ namespace Danstagram.Services.Feed
             HttpResponseMessage response;
             try
             {
-                response = await client.PostAsync("/items", content);
+                response = await Client.PostAsync("/items", content);
                 response.EnsureSuccessStatusCode();
             }
             catch (TaskCanceledException)
@@ -84,7 +87,7 @@ namespace Danstagram.Services.Feed
             HttpResponseMessage response;
             try
             {
-                response = await client.GetAsync($"/items/{id}");
+                response = await Client.GetAsync($"/items/{id}");
                 response.EnsureSuccessStatusCode();
 
             }

@@ -33,6 +33,7 @@ namespace Danstagram.ViewModels.Account
         #endregion
 
         #region Methods
+
         private async Task OnSignOutClicked()
         {
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");

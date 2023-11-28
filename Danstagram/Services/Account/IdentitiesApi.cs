@@ -40,7 +40,6 @@ namespace Danstagram.Services.Feed
             };
 
             var jsonBody = JsonConvert.SerializeObject(userDto);
-            Console.WriteLine(jsonBody);
             var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
             try
             {

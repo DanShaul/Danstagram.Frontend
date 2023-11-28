@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Danstagram.Services.Feed
 {
-    interface IItemServiceProvider<T> where T : IEntity
+    public interface IItemServiceProvider<T> where T : IEntity
     {
         #region Methods
         Task<IReadOnlyCollection<T>> GetAllItemsAsync();
         Task<T> GetItemAsync(Guid id);
         Task CreateItemAsync(T item);
+        Task<bool> IsUp();
         #endregion
     }
 }

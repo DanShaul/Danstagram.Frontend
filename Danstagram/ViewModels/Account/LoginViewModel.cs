@@ -6,6 +6,7 @@ using Danstagram.Views.Feed;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Danstagram.ViewModels.Account
@@ -33,16 +34,7 @@ namespace Danstagram.ViewModels.Account
         #endregion
 
         #region Methods
-        private class CreateLike
-        {
-            public Guid UserId { get; set; }
-            public Guid FeedItemId { get; set; }
-        }
-        private class CreateComment
-        {
-            public Guid UserId { get; set; }
-            public Guid FeedItemId { get; set; }
-        }
+
         public bool ValidateModelProperties()
         {
             bool usernameValid = Model.UserNameOptions.Validate(Model.UserName);

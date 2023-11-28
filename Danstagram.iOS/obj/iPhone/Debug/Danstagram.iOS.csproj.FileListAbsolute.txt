@@ -132,3 +132,11 @@ E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Front
 E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram.iOS\bin\iPhone\Debug\System.Runtime.CompilerServices.Unsafe.dll
 E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram.iOS\bin\iPhone\Debug\System.Text.Encodings.Web.dll
 E:\Necessary\Studies\University\OpenUniversity\Sadna\Danstagram\Danstagram.Frontend\Danstagram.iOS\bin\iPhone\Debug\System.Text.Json.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.iOS\bin\iPhone\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.iOS\bin\iPhone\Debug\Newtonsoft.Json.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.iOS\bin\iPhone\Debug\System.Buffers.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.iOS\bin\iPhone\Debug\System.Memory.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.iOS\bin\iPhone\Debug\System.Net.Http.Json.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.iOS\bin\iPhone\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.iOS\bin\iPhone\Debug\System.Text.Encodings.Web.dll
+D:\Necessary\Open Uni Matalot\Sadna Be Tihnut monhe atzamim\FrontEnd\Danstagram\Danstagram.iOS\bin\iPhone\Debug\System.Text.Json.dll

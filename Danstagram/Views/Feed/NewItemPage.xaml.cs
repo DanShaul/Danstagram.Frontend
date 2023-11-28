@@ -11,7 +11,6 @@ namespace Danstagram.Views.Feed
 {
     public partial class NewItemPage : ContentPage
     {
-        public PictureItem Item { get; set; }
 
         public NewItemPage()
         {

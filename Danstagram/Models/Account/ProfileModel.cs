@@ -6,6 +6,7 @@ namespace Danstagram.Models.Account
 {
     class ProfileModel : BindableBase
     {
-        public string UserName { get; set; }
+        private string userName;
+        public string UserName { get { return userName; } set { SetProperty(ref userName, value); } }
     }
 }

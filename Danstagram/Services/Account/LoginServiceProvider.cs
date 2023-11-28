@@ -18,21 +18,21 @@ namespace Danstagram.Services.Account
     {
         #region Properties
         private readonly IdentitiesApi identitiesApi;
-        private readonly IDataStore<User> dataStore;
         #endregion
         #region Contructors
         public LoginServiceProvider()
         {
-            dataStore = DependencyService.Get<IDataStore<User>>();
             identitiesApi = new IdentitiesApi();
         }
         #endregion
-        #region Methods
-        private class CreatedUserDto
+        #region Classes
+        private sealed class CreatedUserDto
         {
             public Guid Id { get; set; }
             public string Username { get; set; }
         }
+        #endregion
+        #region Methods
         public async Task<Guid> CreateUser(string username, string password)
         {
             Console.WriteLine("----Creating User----");

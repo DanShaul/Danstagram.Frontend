@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Danstagram.Models.Common
 {
-    class BaseTextOptions : BindableBase
+    public class BaseTextOptions : BindableBase
     {
         private string text = "";
         public string Text { get { return text; } set { SetProperty(ref text, value); } }

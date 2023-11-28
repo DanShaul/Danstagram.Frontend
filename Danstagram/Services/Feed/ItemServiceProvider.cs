@@ -29,12 +29,17 @@ namespace Danstagram.Services.Feed
 
 
         #region Methods
+        public async Task<bool> IsUp()
+        {
+            return await feedApi.IsUp();
+        }
 
         public async Task CreateItemAsync(PictureItem item)
         {
             Console.WriteLine("-----Creating Item-----");
-            await feedApi.CreateItemAsync(item);
-            await dataStore.CreateAsync(item);
+            var createItemInDatabaseTask = feedApi.CreateItemAsync(item);
+            var createItemLocallyTask = dataStore.CreateAsync(item);
+            await Task.WhenAll(createItemInDatabaseTask,createItemLocallyTask);
 
         }
         public async Task<IReadOnlyCollection<PictureItem>> GetAllItemsAsync()

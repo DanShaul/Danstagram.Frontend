@@ -1,4 +1,5 @@
 ﻿using Danstagram.Models;
+using Danstagram.Models.Account;
 using Danstagram.Models.Feed;
 using Danstagram.Models.Interactions;
 using Danstagram.Services.Feed;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using System.Collections.ObjectModel;
 
 namespace Danstagram.ViewModels.Feed
 {
@@ -25,7 +27,6 @@ namespace Danstagram.ViewModels.Feed
         public FeedViewModel()
         {
             Title = "Feed";
-            Model = new FeedModel();
 
             AddItemCommand = new Command(async () => await OnAddItemClicked());
             LoadItemsCommand = new Command(() => OnRefresh());
@@ -45,43 +46,63 @@ namespace Danstagram.ViewModels.Feed
         public ICommand SignOutCommand { get; }
         #endregion
         #region Methods
-        public void OnRefresh()
+        private async Task<bool> ValidateFeedService()
         {
-            IsBusy = true;
-            LoadItemCollectionAsync();
+            var isUpTask = Model.ItemServiceProvider.IsUp();
+            Model.ResetErrorMessage();
+            if(!(await isUpTask))
+            {
+                Model.SetErrorMessage("Problem connecting to feed service");
+            }
+            return await isUpTask;
+        }
+        private async Task<bool> ValidateLikeService()
+        {
+            var isUpTask = Model.LikeServiceProvider.IsUp();
+            return await isUpTask;
+        }
+        public async Task OnRefresh()
+        {
+            await LoadItemCollectionAsync();
         }
         public void OnAppearing()
         {
-            
             IsBusy = true;
         }
         private async Task OnLikeClicked(Guid id){
+            var isLikeServiceUpTask = Task.Run(() => ValidateLikeService());
             var item = Model.ItemList.FirstOrDefault((existingItem)=> existingItem.Id == id) ?? throw new ArgumentException("Bad Argument");
             item.LikeCount += item.IsLiked?-1:1;
             item.IsLiked = !item.IsLiked;
-            if (item.IsLiked)
+
+            if (await isLikeServiceUpTask)
             {
-                await Task.Run(
+                if (item.IsLiked)
+                {
+                    await Task.Run(
+                        async () =>
+                        {
+                            await Model.LikeServiceProvider.CreateInteractionAsync(new LikeModel
+                            {
+                                Id = Guid.NewGuid(),
+                                UserId = ((App)App.Current).UserId,
+                                FeedItemId = item.Id,
+                            });
+                        });
+                }
+                else
+                {
+                    await Task.Run(
                     async () =>
                     {
-                        var likeServiceProvider = DependencyService.Get<IInteractionServiceProvider<LikeModel>>();
-                        await likeServiceProvider.CreateInteractionAsync(new LikeModel
-                        {
-                            Id = Guid.NewGuid(),
-                            UserId = ((App)App.Current).UserId,
-                            FeedItemId = item.Id,
-                        });
+                        var existingLikes = await Model.LikeServiceProvider.GetItemUserInteractionsAsync(id, ((App)App.Current).UserId);
+                        await Model.LikeServiceProvider.DeleteInteractionAsync(existingLikes.FirstOrDefault());
                     });
+                }
             }
             else
             {
-                await Task.Run(
-                async () =>
-                {
-                    var likeServiceProvider = DependencyService.Get<IInteractionServiceProvider<LikeModel>>();
-                    var existingLikes = await likeServiceProvider.GetItemUserInteractionsAsync(id, ((App)App.Current).UserId);
-                    await likeServiceProvider.DeleteInteractionAsync(existingLikes.First());
-                });
+                await App.Current.MainPage.DisplayAlert("Alert", "Couldnt send like, problem reaching interaction service", "OK");
             }
 
         }
@@ -92,50 +113,50 @@ namespace Danstagram.ViewModels.Feed
         {
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
+        private async Task<IReadOnlyCollection<PictureItem>> GetAllItemsFromDatabase()
+        {
+            if (await ValidateFeedService())
+            {
+                var itemServiceProvider = DependencyService.Get<IItemServiceProvider<PictureItem>>();
+                return await itemServiceProvider.GetAllItemsAsync();
+            }
+            return null;
+        }
+
+
         private async Task LoadItemCollectionAsync()
         {
-            Model.ItemList.Clear();
-
-            var itemServiceProvider = DependencyService.Get<IItemServiceProvider<PictureItem>>();
-            var likeServiceProvider = DependencyService.Get<IInteractionServiceProvider<LikeModel>>();
-            IReadOnlyCollection<PictureItem> existingItems;
-            try
+            var validateLikeServiceTask = Task.Run(() => ValidateLikeService());
+            var existingItems = await Task.Run(() => GetAllItemsFromDatabase());
+            if (existingItems != null)
             {
-                existingItems = await itemServiceProvider.GetAllItemsAsync();
-            }catch(Exception ex)
-            {
-                Device.BeginInvokeOnMainThread(() =>
+                await Task.Run(async () =>
                 {
-                    Model.ErrorMessage = ex.Message;
+                    
+                    ObservableCollection<FeedModel.FeedItem> newItemList = new ObservableCollection<FeedModel.FeedItem>();
+                    var likeServiceProvider = DependencyService.Get<IInteractionServiceProvider<LikeModel>>();
+                    var isLikeServiceUp = await validateLikeServiceTask;
+                    foreach (var item in existingItems)
+                    {
+                        var likes = Enumerable.Empty<LikeModel>();
+                        if (isLikeServiceUp)
+                        {
+                            likes = await likeServiceProvider.GetItemInteractionsAsync(item.Id);
+                        }
+
+                        var newItem = new FeedModel.FeedItem(item)
+                        {
+                            IsLiked = likes.SingleOrDefault((like) => like.FeedItemId == item.Id && like.UserId == ((App)App.Current).UserId) != null,
+                            LikeCount = likes.Count()
+                        };
+                        newItemList.Add(newItem);
+                    }
+                    Model.ItemList = new ObservableCollection<FeedModel.FeedItem>(newItemList);
                 });
-                Console.WriteLine("Hello");
-                IsBusy = false;
-                return;
             }
 
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                foreach (var item in existingItems)
-                {
-                    var likes = await likeServiceProvider.GetItemInteractionsAsync(item.Id);
-
-                    var newItem = new FeedModel.FeedItem(item);
-                    newItem.IsLiked = (await likeServiceProvider.GetItemUserInteractionsAsync(item.Id, ((App)App.Current).UserId)).Count != 0;
-                    newItem.LikeCount = likes.Count;
-
-                    Model.ItemList.Add(newItem);
-                }
-            });
             IsBusy = false;
         }
-        private async Task LoadItemAsync(FeedModel.FeedItem item)
-        {
-            var itemServiceProvider = DependencyService.Get<ItemServiceProvider>();
-            var existingItem = await itemServiceProvider.GetItemAsync(item.Id);
-            var indexItem = Model.ItemList.IndexOf(item);
-            Model.ItemList.Insert(indexItem,new FeedModel.FeedItem(existingItem));
-        }
-
         #endregion
     }
 }

@@ -18,11 +18,13 @@ namespace Danstagram.ViewModels.Feed
 
         public NewItemViewModel() {
             Title = "Post Your Picture";
-            Model = new NewItemModel();
+
             Model.CaptionOptions.IsRequired = true;
             Model.CaptionOptions.Caption = "Caption";
+
             Model.ImageOptions.IsRequired = true;
             Model.ImageOptions.Caption = "Image";
+
             ChoosePictureCommand = new Command(async () => await OnChoosePictureClicked());
             PostCommand = new Command(async () => await OnPostClicked());
             CancelCommand = new Command(async () => await OnCancelClicked());

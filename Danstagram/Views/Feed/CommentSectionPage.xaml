@@ -42,7 +42,21 @@
                         </Frame>
                     </DataTemplate>
             </CollectionView.ItemTemplate>
-        </CollectionView>
+            <CollectionView.EmptyView>
+                <FlexLayout Padding="30"
+                    Direction="Column"
+                    JustifyContent="Center"
+                    VerticalOptions="Fill"
+                    BackgroundColor="AliceBlue"
+                        >
+                    <Label
+                Text="{Binding Model.ErrorMessage, Mode=TwoWay}"
+                FontSize="24"
+                Margin="0,0,0,20"
+                />
+                </FlexLayout>
+            </CollectionView.EmptyView>
+            </CollectionView>
             <Frame BorderColor="LightGray" HasShadow="true" CornerRadius="10" Padding="10">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                     <Editor Margin="0,0,0,0" 

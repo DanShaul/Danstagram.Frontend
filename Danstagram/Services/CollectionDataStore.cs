@@ -13,10 +13,15 @@ namespace Danstagram.Services
 {
     public class CollectionDataStore<T> : IDataStore<T> where T : IEntity
     {
+        #region Properties
         private readonly ICollection<T> entityCollection;
+        #endregion
+        #region Constructors
         public CollectionDataStore(){
             this.entityCollection = new Collection<T>();
         }
+        #endregion
+        #region Methods
         public async Task CreateAsync(T entity)
         {
 
@@ -34,6 +39,16 @@ namespace Danstagram.Services
         public async Task DeleteAsync(Guid id)
         {
             await Task.Run(() => entityCollection.Remove(entityCollection.Single(entity => entity.Id == id)));
+        }
+        public async Task DeleteAllAsync(Expression<Func<T, bool>> filter)
+        {
+            var toDelete = await Task.Run(() => entityCollection.Where(filter.Compile()).ToList());
+            if (toDelete == null){
+                return;
+            }
+            foreach (T item in toDelete){
+                await Task.Run(() => entityCollection.Remove(item));
+            }
         }
 
         public async Task<IReadOnlyCollection<T>> GetAllAsync()
@@ -67,11 +82,12 @@ namespace Danstagram.Services
 
         public async Task UpdateAsync(T entity)
         {
-            if(entity == null)
+            if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
             await Task.Run(() => entityCollection.Select(existingEntity => existingEntity.Id == entity.Id ? entity : existingEntity));
         }
+        #endregion
     }
 }

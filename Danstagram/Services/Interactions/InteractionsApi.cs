@@ -1,5 +1,6 @@
 ﻿using Danstagram.Models;
 using Danstagram.Models.Interactions;
+using Danstagram.Services.Common;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,27 +18,12 @@ using System.Web;
 
 namespace Danstagram.Services.Feed
 {
-    public class InteractionsApi<T> where T : IInteraction
+    public class InteractionsApi<T> : Api where T : IInteraction
     {
         #region Constructors
         public InteractionsApi()
         {
-            var handler = new HttpClientHandler
-            {
-                ClientCertificateOptions = ClientCertificateOption.Manual,
-                ServerCertificateCustomValidationCallback =
-                (httpRequestMessage, cert, cetChain, policyErrors) =>
-                {
-                    return true;
-                }
-            };
-
-            client = new HttpClient(handler)
-            {
-                BaseAddress = new Uri(url)
-            };
-            client.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/json"));
+            Client.BaseAddress = new Uri(url);
 
             var runtimeType = typeof(T).ToString().Split('.').Last();
             interactionType = runtimeType.ToLower().Substring(0, runtimeType.Length - 5) + "s";
@@ -46,45 +32,48 @@ namespace Danstagram.Services.Feed
 
         #region Properties
         private readonly string url = "https://10.0.2.2:5005";
-        private readonly HttpClient client;
         private readonly string interactionType;
 
         #endregion
-
-        #region Methods
+        #region Classes
         private class CreateInteractionDto
         {
             public Guid UserId { get; set; }
             public Guid FeedItemId { get; set; }
         }
-        private class CreateLikeDto : CreateInteractionDto { public Guid Id { get; set; } }
-        private class CreateCommentDto : CreateInteractionDto{ public string Message { get; set; }}
+        private sealed class CreateLikeDto : CreateInteractionDto { public Guid Id { get; set; } }
+        private sealed class CreateCommentDto : CreateInteractionDto { public string Message { get; set; } }
+        #endregion
+        #region Methods
+
+
+        public async Task<bool> IsUp()
+        {
+            HttpResponseMessage response;
+            try
+            {
+                response = await Client.GetAsync("/health").WrapTimeout();
+                response.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (TaskCanceledException)
+            {
+                return false;
+            }
+        }
         public async Task<IReadOnlyCollection<T>> GetItemInteractionsAsync(Guid itemId)
         {
-            Console.WriteLine("----Getting Item Interactions Async----");
 
             var query = HttpUtility.ParseQueryString(string.Empty);
             query["feedItemId"] = itemId.ToString();
             string itemIdQueryString = query.ToString();
 
-            var response = await client.GetAsync($"/interactions/{interactionType}/feeditems/:id?{itemIdQueryString}").ConfigureAwait(false);
-
-            try
-            {
-                response.EnsureSuccessStatusCode();
-                var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var interactionsList = JsonConvert.DeserializeObject<IReadOnlyCollection<T>>(content);
-                return interactionsList;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            return null;
+            var response = await Client.GetAsync($"/interactions/{interactionType}/feeditems/:id?{itemIdQueryString}").ConfigureAwait(false);
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<IReadOnlyCollection<T>>(content);
         }
 
-        public async Task<Guid> CreateInteractionAsync(T interaction)
+        public async Task CreateInteractionAsync(T interaction)
         {
             CreateInteractionDto createInteraction = null;
             if (interactionType.Equals("likes"))
@@ -108,35 +97,12 @@ namespace Danstagram.Services.Feed
             var jsonBody = JsonConvert.SerializeObject(interaction);
             var content = new StringContent(jsonBody,Encoding.UTF8,"application/json");
 
-            var response = await client.PostAsync($"/interactions/{interactionType}",content).ConfigureAwait(false);
-            Console.WriteLine($"----Path is: /interactions/{interactionType}----");
-            Console.WriteLine($"----JsonBody is: {jsonBody}");
-            try
-            {
-                response.EnsureSuccessStatusCode();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            return Guid.Empty;
+            await Client.PostAsync($"/interactions/{interactionType}",content);
         }
 
         public async Task DeleteInteractionAsync(Guid id)
         {
-            Console.WriteLine($"----Deleting interaction ----");
-
-            var response = await client.DeleteAsync($"/interactions/{interactionType}/{id}").ConfigureAwait(false);
-            
-            Console.WriteLine($"----Path is: /interactions/{interactionType}/{id}----");
-            try
-            {
-                response.EnsureSuccessStatusCode();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            await Client.DeleteAsync($"/interactions/{interactionType}/{id}");
         }
         #endregion
     }

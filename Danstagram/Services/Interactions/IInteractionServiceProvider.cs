@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace Danstagram.Services.Interactions
 {
-    interface IInteractionServiceProvider<T> where T : IInteraction
+    public interface IInteractionServiceProvider<T> where T : IInteraction
     {
         #region Methods
         Task CreateInteractionAsync(T interaction);
         Task DeleteInteractionAsync(T interaction);
         Task<IReadOnlyCollection<T>> GetItemInteractionsAsync(Guid itemId);
-        Task<IReadOnlyCollection<T>> GetItemUserInteractionsAsync(Guid itemId,Guid userId);
+        Task<IEnumerable<T>> GetItemUserInteractionsAsync(Guid itemId,Guid userId);
+        Task<bool> IsUp();
         #endregion
     }
 }

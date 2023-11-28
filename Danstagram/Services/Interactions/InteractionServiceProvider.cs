@@ -2,6 +2,7 @@
 using Danstagram.Services.Feed;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -21,29 +22,55 @@ namespace Danstagram.Services.Interactions
         }
         #endregion
         #region Methods
+        public async Task<bool> IsUp()
+        {
+            return await interactionsApi.IsUp();
+        }
 
         public async Task<IReadOnlyCollection<T>> GetItemInteractionsAsync(Guid itemId)
         {
             var databaseInteractions = await interactionsApi.GetItemInteractionsAsync(itemId);
-            await dataStore.LoadDataFromBackend(databaseInteractions);
-            return await dataStore.GetAllAsync((itemT) => itemT.FeedItemId == itemId);
+            await Task.Run(async () =>
+            {
+                await dataStore.DeleteAllAsync((entity) => entity.FeedItemId == itemId);
+                foreach (var entity in databaseInteractions)
+                {
+                    await dataStore.CreateAsync(entity);
+                }
+            });
+            return databaseInteractions;
         }
 
         public async Task CreateInteractionAsync(T interaction)
         {
-            await interactionsApi.CreateInteractionAsync(interaction);
-            await dataStore.CreateAsync(interaction);
+            var CreateApiTask = interactionsApi.CreateInteractionAsync(interaction);
+            var CreateLocalTask = dataStore.CreateAsync(interaction);
+            await Task.WhenAll(CreateApiTask,CreateLocalTask);
         }
 
         public async Task DeleteInteractionAsync(T interaction)
         {
-            await interactionsApi.DeleteInteractionAsync(interaction.Id);
-            await dataStore.DeleteAsync(interaction.Id);
+            if(interaction == null)
+            {
+                return;
+            }
+            var DeleteApiTask = interactionsApi.DeleteInteractionAsync(interaction.Id);
+            var DeleteLocalTask = dataStore.DeleteAsync(interaction.Id);
+            await Task.WhenAll(DeleteApiTask, DeleteLocalTask);
         }
 
-        public async Task<IReadOnlyCollection<T>> GetItemUserInteractionsAsync(Guid itemId,Guid userId)
+        public async Task<IEnumerable<T>> GetItemUserInteractionsAsync(Guid itemId,Guid userId)
         {
-            return await dataStore.GetAllAsync((entity) => entity.FeedItemId == itemId && entity.UserId == userId);
+            var databaseInteractions = await interactionsApi.GetItemInteractionsAsync(itemId);
+            await Task.Run(async () =>
+            {
+                await dataStore.DeleteAllAsync((entity) => entity.FeedItemId == itemId);
+                foreach (var entity in databaseInteractions)
+                {
+                    await dataStore.CreateAsync(entity);
+                }
+            });
+            return databaseInteractions.Where((entity) => entity.FeedItemId == itemId && entity.UserId == userId);
         }
         #endregion
     }

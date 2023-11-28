@@ -11,11 +11,9 @@ namespace Danstagram
     {
         public AppShell()
         {
-            Console.WriteLine("Started Loading AppShell");
             InitializeComponent();
             Routing.RegisterRoute(nameof(CommentSectionPage), typeof(CommentSectionPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
-            Console.WriteLine("Finished Loading AppShell");
         }
 
     }
